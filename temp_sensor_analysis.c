@@ -63,7 +63,7 @@ typedef enum Error_Define {
 FUNCTION    Input_Data
 
 DESCRIPTION
-  
+  Checking Input Data from Temperature Sensor
 
 DEPENDENCIES
   None.
