@@ -35,9 +35,8 @@
 /*=============================================================================
                            INCLUDE FILES
 =============================================================================*/
-#include "stdio.h"
-#include "stdbool.h"
-#include "math.h"
+#include <stdio.h>
+#include <stdbool.h>
 
 /*=============================================================================
                            CONSTANTS
@@ -59,9 +58,9 @@ int average_temp;
                            DEFINITION ERROR CODES
 =============================================================================*/
 enum ErrorCode { 
-  NO_ERROR, // Has no any error
-  NEGATIVE_VALUE, // Temperature input less than 0 degree celcius
-  SUB_THRESHOLD, // Temperature input less than MIN_TEMP
-  OVER_THRESHHOLD, // Temperature input greater than MAX_TEMP
-  LARGE_DEV, // Temperature deviates too large
+  NO_ERROR = 0, // Has no any error
+  NEGATIVE_VALUE = -1, // Temperature input less than 0 degree celcius
+  SUB_THRESHOLD = 1, // Temperature input less than MIN_TEMP
+  OVER_THRESHHOLD = 2, // Temperature input greater than MAX_TEMP
+  LARGE_DEV = 3, // Temperature deviates too large
 };

@@ -43,7 +43,7 @@
 
 /*===========================================================================
 
- FUNCTION    InputDataCheck
+ FUNCTION    InputErrorDefine
 
  DESCRIPTION
  Checking Input Data from Temperature Sensor
@@ -59,7 +59,7 @@
  None
 
  ===========================================================================*/
-enum ErrorCode InputTempCheck() {
+enum ErrorCode InputErrorDefine() {
   if (calc_temp < ZERO_DEGREE) {
     return NEGATIVE_VALUE;    
   } else if (calc_temp < MIN_TEMP) {
@@ -70,6 +70,33 @@ enum ErrorCode InputTempCheck() {
     return NO_ERROR;
   }
 }
+
+/*===========================================================================
+
+ FUNCTION    InputTempCheck
+
+ DESCRIPTION
+ Running timer to count deviant temperature
+
+ DEPENDENCIES
+ None.
+
+ RETURN VALUE
+ FALSE = failure, else TRUE.
+ Currently all the internal boolean return functions called by
+ this function just returns TRUE w/o doing anything.
+
+ SIDE EFFECTS
+ None
+
+ ===========================================================================*/
+bool InputTempCheck(){
+  if (InputErrorDefine() == NO_ERROR && min_mean_temp >= MIN_TEMP && min_mean_temp <= MAX_TEMP) 
+    return true;
+  else
+  return false;
+}
+
 
 /*===========================================================================
 
@@ -91,10 +118,14 @@ enum ErrorCode InputTempCheck() {
 
  ===========================================================================*/
 int TempDeviation(){
-  double dev_temp;
+  int dev_temp;
 
-  dev_temp = sqrt(pow(calc_temp-min_mean_temp,2));
-  return (int) dev_temp;
+  if (calc_temp > min_mean_temp)
+    dev_temp = calc_temp - min_mean_temp;
+  else
+    dev_temp = min_mean_temp - calc_temp;
+
+  return dev_temp;
 }
 
 /*===========================================================================
@@ -119,10 +150,13 @@ int TempDeviation(){
 bool TempSensorAnalysis(int input_min_mean_temp, int input_temp){
   min_mean_temp = input_min_mean_temp;
   calc_temp = input_temp;
-  if (InputTempCheck() == NO_ERROR)
-  {      
-    TempDeviation();
-    return true;
+
+  if (InputTempCheck())
+  {
+    if (TempDeviation() > DEV_TEMP)
+      return false;
+    else
+      return true;
   } else
   return false;
 }
@@ -131,38 +165,52 @@ bool TempSensorAnalysis(int input_min_mean_temp, int input_temp){
 /*                                     TEST FUNCTION                           */
 /*=============================================================================*/
 int main() { 
+  bool check;
   
-  if (!TempSensorAnalysis(21, -1))
-  {
-    printf("\nErrorCode: %d \n",InputTempCheck());
-    printf("Check: %d \n",TempSensorAnalysis(min_mean_temp, calc_temp));
-    printf("calc_temp: %d \n",calc_temp);
-    printf("min_mean_temp: %d \n",min_mean_temp);
-  }
-
-  if (!TempSensorAnalysis(24, 5))
-  {
-    printf("\nErrorCode: %d \n",InputTempCheck());
-    printf("Check: %d \n",TempSensorAnalysis(min_mean_temp, calc_temp));
-    printf("calc_temp: %d \n",calc_temp);
-    printf("min_mean_temp: %d \n",min_mean_temp);
-  }
-
-  if (!TempSensorAnalysis(22, 80))
-  {
-    printf("\nErrorCode: %d \n",InputTempCheck());
-    printf("Check: %d \n",TempSensorAnalysis(min_mean_temp, calc_temp));
-    printf("calc_temp: %d \n",calc_temp);
-    printf("min_mean_temp: %d \n",min_mean_temp);
-  }
-
-  if (TempSensorAnalysis(30, 25))
-  {
-    printf("\nErrorCode: %d \n",InputTempCheck());
-    printf("Check: %d \n",TempSensorAnalysis(min_mean_temp, calc_temp));
-    printf("calc_temp: %d \n",calc_temp);
-    printf("min_mean_temp: %d \n",min_mean_temp);
-  }  
-
+  // Test 01
+  check = TempSensorAnalysis(21, -10);
+  printf("\n--- Test 01 ---");
+  printf("\nErrorCode: %d \n",InputErrorDefine());
+  printf("Check: %d \n",TempSensorAnalysis(min_mean_temp, calc_temp));
+  printf("calc_temp: %d \n",calc_temp);
+  printf("min_mean_temp: %d \n",min_mean_temp);
+  printf("TempDeviation: %d \n",TempDeviation());
+  
+  // Test 02
+  check = TempSensorAnalysis(24, 5);
+  printf("\n--- Test 02 ---");
+  printf("\nErrorCode: %d \n",InputErrorDefine());
+  printf("Check: %d \n",TempSensorAnalysis(min_mean_temp, calc_temp));
+  printf("calc_temp: %d \n",calc_temp);
+  printf("min_mean_temp: %d \n",min_mean_temp);
+  printf("TempDeviation: %d \n",TempDeviation());
+  
+  // Test 03
+  check = TempSensorAnalysis(22, 80);
+  printf("\n--- Test 03 ---");
+  printf("\nErrorCode: %d \n",InputErrorDefine());
+  printf("Check: %d \n",TempSensorAnalysis(min_mean_temp, calc_temp));
+  printf("calc_temp: %d \n",calc_temp);
+  printf("min_mean_temp: %d \n",min_mean_temp);
+  printf("TempDeviation: %d \n",TempDeviation());
+  
+  // Test 04
+  check = TempSensorAnalysis(30, 25);
+  printf("\n--- Test 04 ---");
+  printf("\nErrorCode: %d \n",InputErrorDefine());
+  printf("Check: %d \n",TempSensorAnalysis(min_mean_temp, calc_temp));
+  printf("calc_temp: %d \n",calc_temp);
+  printf("min_mean_temp: %d \n",min_mean_temp);
+  printf("TempDeviation: %d \n",TempDeviation());
+  
+  // Test 05
+  check = TempSensorAnalysis(71, 20);
+  printf("\n--- Test 05 ---");
+  printf("\nErrorCode: %d \n",InputErrorDefine());
+  printf("Check: %d \n",TempSensorAnalysis(min_mean_temp, calc_temp));
+  printf("calc_temp: %d \n",calc_temp);
+  printf("min_mean_temp: %d \n",min_mean_temp);
+  printf("TempDeviation: %d \n",TempDeviation());
+  
   return 0;
 }
