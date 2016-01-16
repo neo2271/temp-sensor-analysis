@@ -35,8 +35,8 @@
 /*=============================================================================
                            INCLUDE FILES
 =============================================================================*/
-#include "stdbool.h"
 #include "stdio.h"
+#include "stdbool.h"
 #include "math.h"
 
 /*=============================================================================
@@ -52,15 +52,16 @@
                            VARIANTS
 =============================================================================*/
 int min_mean_temp; // Minimum real meaning temperature
-int calc_temp, average_temp;
+int calc_temp; // Input temperature to calculate
+int average_temp;
 
 /*=============================================================================
                            DEFINITION ERROR CODES
 =============================================================================*/
-enum Error_Code { 
-  No_Error, // Has no any error
-  Negative_Value, // Temperature input less than 0 degree celcius
-  Sub_Threshold, // Temperature input less than MIN_TEMP
-  Over_Threshhold, // Temperature input greater than MAX_TEMP
-  Large_Dev, // Temperature deviates too large
+enum ErrorCode { 
+  NO_ERROR, // Has no any error
+  NEGATIVE_VALUE, // Temperature input less than 0 degree celcius
+  SUB_THRESHOLD, // Temperature input less than MIN_TEMP
+  OVER_THRESHHOLD, // Temperature input greater than MAX_TEMP
+  LARGE_DEV, // Temperature deviates too large
 };
