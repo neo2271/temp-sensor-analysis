@@ -59,18 +59,15 @@
  None
 
  ===========================================================================*/
-Input_Data(int input) {
-  if (input < 0) {
-    printf("Negative_Value");
+Input_Data(int input_min_mean_temp, int input_temp) {
+  if (input_temp < ZERO_DEGREE) {
     return Negative_Value;    
-  } else if (input < MIN_TEMP) {
-    printf("Sub_Threshold");
+  } else if (input_temp < MIN_TEMP) {
     return Sub_Threshold;
-  } else if (input > MAX_TEMP) {
-    printf("Over_Threshhold");
+  } else if (input_temp > MAX_TEMP) {
     return Over_Threshhold;
   } else {
-    printf("No_Error");
+    min_mean_temp = input_min_mean_temp;
     return No_Error;
   }
 }
@@ -94,7 +91,9 @@ Input_Data(int input) {
  None
 
  ===========================================================================*/
-enum Error_Code Temp_Deviation(){
+Temp_Deviation(){
+
+  return 2;
 }
 
 /*=============================================================================*/
@@ -102,11 +101,20 @@ enum Error_Code Temp_Deviation(){
 /*=============================================================================*/
 int main() {
   enum Error_Code error_code = No_Error;
-  printf("\n%d | Input_Data(-1)\n",Input_Data(-1));
-  printf("\n%d | Input_Data(5)\n",Input_Data(5));
-  printf("\n%d | Input_Data(80)\n",Input_Data(80));
-  printf("\n%d | Input_Data(25)\n",Input_Data(25));
-  printf("\n%d\n%d\n%d", MIN_TEMP,MAX_TEMP,DEV_TEMP);
+  enum Error_Code er=1;
+  printf("\n%d | Input_Data(-1)\n",Input_Data(21, -1));
+  printf("%d\n",min_mean_temp);
+  printf("\n%d | Input_Data(5)\n",Input_Data(21, 5));
+  printf("%d\n",min_mean_temp);
+  printf("\n%d | Input_Data(80)\n",Input_Data(21, 80));
+  printf("%d\n",min_mean_temp);
+  printf("\n%d | Input_Data(25)\n",Input_Data(21, 25));
+  printf("%d\n",min_mean_temp);
+  printf("\n%d\n%d\n%d", MIN_TEMP, MAX_TEMP, DEV_TEMP);
   printf("\n%d\n",error_code);
+  
+  printf("\n%d",Temp_Deviation());
+  printf("\n%d",er);
+  
   return 0;
 }

@@ -42,15 +42,17 @@
 /*=============================================================================
                            CONSTANTS
 =============================================================================*/                           
-#define MAX_TEMP      70 // Maximum temperature
+#define ZERO_DEGREE   0 // 0 degree celcius
 #define MIN_TEMP      20 // Minimum temperature
+#define MAX_TEMP      70 // Maximum temperature
 #define DEV_TEMP      50 // Deviation of temperature between two measure times
 #define ANALY_TIMER   10 // Store input data in 10 seconds to analyze 
 
 /*=============================================================================
                            VARIANTS
 =============================================================================*/
-int average_temp;
+int min_mean_temp; // Minimum real meaning temperature
+int calc_temp, average_temp;
 
 /*=============================================================================
                            DEFINITION ERROR CODES
