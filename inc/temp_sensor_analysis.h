@@ -32,6 +32,9 @@
 
  ===========================================================================*/
 
+#ifndef _TEMP_SENSOR_ANALYSIS_H
+#define _TEMP_SENSOR_ANALYSIS_H
+
 /*=============================================================================
                            INCLUDE FILES
 =============================================================================*/
@@ -64,3 +67,5 @@ enum ErrorCode {
   OVER_THRESHHOLD = 2, // Temperature input greater than MAX_TEMP
   LARGE_DEV = 3, // Temperature deviates too large
 };
+
+#endif /* _TEMP_SENSOR_ANALYSIS_H */
