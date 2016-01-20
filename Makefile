@@ -19,17 +19,14 @@
 # clean:
 # 	rm -f main
 
-<<<<<<< HEAD
 # ############################################### #
 #                    MAKEFILE                     #
 # ############################################### #
-=======
->>>>>>> 7e2c7cdd42782cb04d38cdb6c9e7d44afdc0cbe3
 
 CC = gcc
 CFLAGS1 = -Wall -g -c
 CFLAGS2 = -g
-<<<<<<< HEAD
+
 # build output directory
 OUT_DIR = build
 # src directory
@@ -50,18 +47,3 @@ ${OUT_DIR}/temp_sensor_analysis.o: ${SRC_DIR}/temp_sensor_analysis.c
 
 clean:
 	rm -rf ${OUT_DIR}
-=======
-
-# Link the two object files together.
-
-build/temp_sensor_analysis: build/temp_sensor_analysis.o
-	${CC} ${CFLAGS2} -o build/temp_sensor_analysis build/temp_sensor_analysis.o
-
-# Compile each source file to an object.
-
-build/temp_sensor_analysis.o: src/temp_sensor_analysis.c
-	${CC} ${CFLAGS1} -o build/temp_sensor_analysis.o src/temp_sensor_analysis.c
-
-clean:
-	rm -f build/temp_sensor_analysis build/temp_sensor_analysis.o
->>>>>>> 7e2c7cdd42782cb04d38cdb6c9e7d44afdc0cbe3
